@@ -1,27 +1,16 @@
 import logging
-class Calculator:
-    def __init__(self):
-        self.logger = logging.getLogger("Calculator")
-        self.logger.setLevel(logging.INFO)
-        self.logger.addHandler(logging.StreamHandler())
-    def add(self , a , b):
-        suma = a + b
-        self.logger.info(f"{a} + {b} = {suma}")
-    def div(self , a , b):
-        if a != 0 or b != 0:
-            div = a / b
-            self.logger.info(f"{a} / {b} = {div}")
-        else:
-            raise ValueError("Ділення на 0 не можливо")
-    def minus(self , a , b):
-        minus = a - b
-        self.logger.info(f"{a} - {b} = {minus}")
-    def dobutok(self , a , b):
-        dobutok = a * b
-        self.logger.info(f"{a} * {b} = {dobutok}")
+def write_file(fill_path , data):
+    try:
+        with open(fill_path , 'w') as file:
+            file.write(data)
+            logging.basicConfig(level=logging.INFO,
+                                filename="logss.log",
+                                filemode='w',
+                                format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.info(f"Дані з файлу {fill_path} успішно додано")
+        return data
+    except Exception as e:
+        logging.error(f'Сталася помилка під час  з файлу {fill_path}')
+        return None
 
-finish = Calculator()
-finish.minus(10 , 5)
-finish.add(9 , 3)
-finish.dobutok(5 , 4)
-finish.div(10 , 0)
+write_file("output.txt" , input("Введіть що треба вписати файл: "))
