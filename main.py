@@ -1,13 +1,16 @@
 import logging
-def write_file(fill_path , data):
+import random
+
+def real_data(file_path):
     try:
-        with open(fill_path , 'w') as file:
+        with open(file_path , "w") as file:
             logger = logging.getLogger("File")
             logger.setLevel(logging.INFO)
             logger.addHandler(logging.StreamHandler())
-            file.write(data)
+            random_number = [str(random.randint(1 , 100)) for i in range(5)]
+            file.write("\n".join(random_number))
             logger.info("Успішно записали файл")
     except Exception as a:
-        logger.error(f"В вашему файлі '{fill_path}' трапилась помилка -> {a}")
+        logger.error(f"В файлі {file_path} трапилась помилка {a}")
 logging.basicConfig(level=logging.INFO)
-write_file("output.txt" , input("Введіть що треба вписати файл: "))
+real_data(input("Введіть назву файла: "))
